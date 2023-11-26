@@ -1,0 +1,69 @@
+﻿@model TouristAgency.ViewModel.TypesOfRecreationViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Услуги</h1>
+
+@if (User.IsInRole("admin"))
+{
+    <p>
+        <a asp-action="Create">Добавить улугу</a>
+    </p>
+}
+<form asp-action="Index" method="post">
+    <p>
+        <input type="text" asp-for="@Model.Name" name="Name" placeholder="Поиск по названию">
+        <input type="text" asp-for="@Model.Description" name="Description" placeholder="Поиск по описанию">
+        <input type="text" asp-for="@Model.Restrictions" name="Restrictions" placeholder="Ограничения">
+        <input type="submit" value="Применить фильтр">
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TypesOfRecreations.FirstOrDefault().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypesOfRecreations.FirstOrDefault().Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypesOfRecreations.FirstOrDefault().Restrictions)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.TypesOfRecreations) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Restrictions)
+            </td>
+                @if (User.IsInRole("admin"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a>
+                        <a asp-action="Details" asp-route-id="@item.Id">Подробности</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">Подробности</a>
+                    </td>
+                }
+        </tr>
+        }
+    </tbody>
+</table>
+<page-link page-model="Model.Page" page-action="Index"></page-link>

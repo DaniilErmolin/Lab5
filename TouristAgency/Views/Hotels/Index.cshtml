@@ -1,0 +1,97 @@
+﻿@model TouristAgency.ViewModel.HotelViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Отели</h1>
+
+@if (User.IsInRole("admin"))
+{
+    <p>
+        <a asp-action="Create">Добавить отель</a>
+    </p>
+}
+<form asp-action="Index" method="post">
+    <p>
+        <input type="text" asp-for="@Model.Name" name="Name" placeholder="Поиск по названию">
+        <input type="text" asp-for="@Model.Country" name="Country" placeholder="Поиск по стране">
+        <input type="text" asp-for="@Model.City" name="City" placeholder="Поиск по городу">
+        <input type="text" asp-for="@Model.Address" name="Address" placeholder="Поиск по адресу">
+        <input type="text" asp-for="@Model.Phone" name="Phone" placeholder="Поиск по телефону">
+        <input type="number" step="any" asp-for="@Model.Stars" name="Stars" placeholder="Звёзд">
+        <input type="text" asp-for="@Model.TheContactPerson" name="TheContactPerson" placeholder="Поиск по ответсвенному">
+        <input type="submit" value="Применить фильтр">
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stars)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TheContactPerson)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Hotels) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stars)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TheContactPerson)
+            </td>
+                @if (User.IsInRole("admin"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a>
+                        <a asp-action="Details" asp-route-id="@item.Id">Подробности</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">Подробности</a>
+                    </td>
+                }
+        </tr>
+        }
+    </tbody>
+</table>
+<page-link page-model="Model.Page" page-action="Index"></page-link>

@@ -1,0 +1,113 @@
+﻿@model TouristAgency.ViewModel.VoucherViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Путёвки</h1>
+
+@if (User.IsInRole("admin"))
+{
+    <p>
+        <a asp-action="Create">Добавить путёвку</a>
+    </p>
+}
+<form asp-action="Index" method="post">
+    <p>
+        <input type="date" asp-for="@Model.StartDate" name="StartDate" placeholder="Начальная дата">
+        <input type="date" asp-for="@Model.ExpirationDate" name="ExpirationDate" placeholder="Конечная дата">
+        <input type="string" asp-for="@Model.HotelName" name="HotelName" placeholder="Отель">
+        <input type="string" asp-for="@Model.TypeOfRecreationName" name="TypeOfRecreationName" placeholder="Услуга">
+        <input type="string" asp-for="@Model.AdditionalServiceName" name="AdditionalServiceName" placeholder="Доп услуга">
+        <input type="string" asp-for="@Model.ClientFio" name="ClientFio" placeholder="Клиент">
+        <input type="string" asp-for="@Model.EmployessFio" name="EmployessFio" placeholder="Сотрудник">
+        <input type="checkbox" asp-for="@Model.Payment" name="Payment" placeholder="Оплачено">
+        <input type="checkbox" asp-for="@Model.Reservation" name="Reservation" placeholder="Зарезервировано">
+
+
+        <input type="submit" value="Применить фильтр">
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpirationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reservation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdditionalServiceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientFio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployessFio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HotelName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeOfRecreationName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Vouchers) {
+        <tr>
+            <td>
+                @item.StartDate.ToShortDateString()
+            </td>
+            <td>
+                @item.ExpirationDate.ToShortDateString()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reservation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Payment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdditionalService.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.Fio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employess.Fio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hotel.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeOfRecreation.Name)
+            </td>
+                @if (User.IsInRole("admin"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a>
+                        <a asp-action="Details" asp-route-id="@item.Id">Подробности</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">Подробности</a>
+                    </td>
+                }
+        </tr>
+        }
+    </tbody>
+</table>
+<page-link page-model="Model.Page" page-action="Index"></page-link>

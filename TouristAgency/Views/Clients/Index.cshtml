@@ -1,0 +1,97 @@
+﻿@model TouristAgency.ViewModel.ClientViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Клиенты</h1>
+
+@if (User.IsInRole("admin"))
+{
+    <p>
+        <a asp-action="Create">Добавить клиента</a>
+    </p>
+}
+<form asp-action="Index" method="post">
+    <p>
+        <input type="text" asp-for="@Model.Fio" name="Fio" placeholder="Фио">
+        <input type="date" asp-for="@Model.DateOfBirth" name="DateOfBirth" placeholder="Дата рождения">
+        <input type="text" asp-for="@Model.Sex" name="Sex" placeholder="Пол">
+        <input type="text" asp-for="@Model.Address" name="Address" placeholder="Адрес">
+        <input type="text" asp-for="@Model.Series" name="Series" placeholder="Серия">
+        <input type="number" step="any" asp-for="@Model.Number" name="Number" placeholder="Номер">
+        <input type="number" step="any" asp-for="@Model.Discount" name="Discount" placeholder="Скидка">
+        <input type="submit" value="Применить фильтр">
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sex)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Series)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Clients) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Series)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discount)
+            </td>
+                @if (User.IsInRole("admin"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a>
+                        <a asp-action="Details" asp-route-id="@item.Id">Подробности</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">Подробности</a>
+                    </td>
+                }
+        </tr>
+        }
+    </tbody>
+</table>
+<page-link page-model="Model.Page" page-action="Index"></page-link>

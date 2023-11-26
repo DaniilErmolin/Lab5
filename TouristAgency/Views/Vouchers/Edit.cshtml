@@ -1,0 +1,75 @@
+﻿@model TouristAgency.Models.Voucher
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Редактировать</h1>
+
+<h4>Путёвка</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExpirationDate" class="control-label"></label>
+                <input asp-for="ExpirationDate" class="form-control" />
+                <span asp-validation-for="ExpirationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hotel" class="control-label"></label>
+                <select asp-for="HotelId" class="form-control" asp-items="ViewBag.HotelId"></select>
+                <span asp-validation-for="HotelId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeOfRecreation" class="control-label"></label>
+                <select asp-for="TypeOfRecreationId" class="form-control" asp-items="ViewBag.TypeOfRecreationId"></select>
+                <span asp-validation-for="TypeOfRecreationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdditionalService" class="control-label"></label>
+                <select asp-for="AdditionalServiceId" class="form-control" asp-items="ViewBag.AdditionalServiceId"></select>
+                <span asp-validation-for="AdditionalServiceId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Client" class="control-label"></label>
+                <select asp-for="ClientId" class="form-control" asp-items="ViewBag.ClientId"></select>
+                <span asp-validation-for="ClientId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employess" class="control-label"></label>
+                <select asp-for="EmployessId" class="form-control" asp-items="ViewBag.EmployessId"></select>
+                <span asp-validation-for="EmployessId" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Reservation" /> @Html.DisplayNameFor(model => model.Reservation)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Payment" /> @Html.DisplayNameFor(model => model.Payment)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Вернуться к путёвкам</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

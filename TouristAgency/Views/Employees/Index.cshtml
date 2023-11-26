@@ -1,0 +1,69 @@
+﻿@model TouristAgency.ViewModel.EmployeeViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Сотрудники</h1>
+
+@if (User.IsInRole("admin"))
+{
+    <p>
+        <a asp-action="Create">Добавить работника</a>
+    </p>
+}
+<form asp-action="Index" method="post">
+    <p>
+        <input type="text" asp-for="@Model.Fio" name="Fio" placeholder="Поиск по ФИО">
+        <input type="text" asp-for="@Model.JobTitle" name="JobTitle" placeholder="Поиск по должности">
+        <input type="number" asp-for="@Model.Age" name="Age" placeholder="Возраст">
+        <input type="submit" value="Применить фильтр">
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees.FirstOrDefault().Fio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees.FirstOrDefault().JobTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees.FirstOrDefault().Age)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Employees) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+                @if (User.IsInRole("admin"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a>
+                        <a asp-action="Details" asp-route-id="@item.Id">Подробности</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">Подробности</a>
+                    </td>
+                }
+        </tr>
+        }
+    </tbody>
+</table>
+<page-link page-model="Model.Page" page-action="Index"></page-link>
