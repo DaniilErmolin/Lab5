@@ -5,6 +5,9 @@ using TouristAgency.Infrastructure;
 using TouristAgency.Models;
 using TouristAgency.Data;
 using Microsoft.AspNetCore.Authorization;
+using System.IO;
+using System.Web;
+using System.Net;
 
 namespace TouristAgency.Controllers
 {
@@ -85,10 +88,18 @@ namespace TouristAgency.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Country,City,Address,Phone,Stars,TheContactPerson,Photo")] Hotel hotel)
+        public async Task<IActionResult> Create(Hotel hotel, IFormFile uploadImage)
         {
             if (ModelState.IsValid)
             {
+                byte[] fileBytes;
+                using (var memoryStream = new MemoryStream())
+                {
+                    await uploadImage.CopyToAsync(memoryStream);
+                    fileBytes = memoryStream.ToArray();
+                }
+                hotel.Photo = fileBytes;
+
                 _context.Add(hotel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -117,7 +128,7 @@ namespace TouristAgency.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Country,City,Address,Phone,Stars,TheContactPerson,Photo")] Hotel hotel)
+        public async Task<IActionResult> Edit(int id, Hotel hotel, IFormFile uploadImage)
         {
             if (id != hotel.Id)
             {
@@ -128,6 +139,17 @@ namespace TouristAgency.Controllers
             {
                 try
                 {
+                    if(uploadImage != null)
+                    {
+                        byte[] fileBytes;
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await uploadImage.CopyToAsync(memoryStream);
+                            fileBytes = memoryStream.ToArray();
+                        }
+                        hotel.Photo = fileBytes;
+                    }
+
                     _context.Update(hotel);
                     await _context.SaveChangesAsync();
                 }

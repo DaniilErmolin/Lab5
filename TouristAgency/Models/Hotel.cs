@@ -21,7 +21,7 @@ public partial class Hotel
 
     public string TheContactPerson { get; set; } = null!;
 
-    public byte[] Photo { get; set; } = null!;
+    public byte[]? Photo { get; set; }
 
     public virtual ICollection<Voucher> Vouchers { get; set; } = new List<Voucher>();
 }
