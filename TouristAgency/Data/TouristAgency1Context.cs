@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using TouristAgency.Models;
+using Domains.Models;
 
 namespace TouristAgency.Data;
 

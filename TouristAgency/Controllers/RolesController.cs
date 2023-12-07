@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TouristAgency.ViewModel;
+using Domains.ViewModel;
 using Microsoft.AspNetCore.Identity;
 
 namespace TouristAgency.Controllers

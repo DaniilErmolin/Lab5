@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\TouristAgency.bundle.scp.css"
     },
     {
+      "Id": "D:\\3\\SQL\\TouristAgency\\TouristAgency\\wwwroot\\css\\boot.css",
+      "PackagePath": "staticwebassets\\css\\boot.css"
+    },
+    {
       "Id": "D:\\3\\SQL\\TouristAgency\\TouristAgency\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

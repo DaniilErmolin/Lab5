@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TouristAgency.ViewModel;
+using Domains.ViewModel;
 using TouristAgency.Infrastructure;
-using TouristAgency.Models;
+using Domains.Models;
 using TouristAgency.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Data.SqlClient;
 
 namespace TouristAgency.Controllers
 {
@@ -70,6 +71,7 @@ namespace TouristAgency.Controllers
         }
 
         // GET: Employees/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             return View();
@@ -80,6 +82,7 @@ namespace TouristAgency.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([Bind("Id,Fio,JobTitle,Age")] Employee employee)
         {
             if (ModelState.IsValid)
@@ -92,6 +95,7 @@ namespace TouristAgency.Controllers
         }
 
         // GET: Employees/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Employees == null)
@@ -112,6 +116,7 @@ namespace TouristAgency.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Fio,JobTitle,Age")] Employee employee)
         {
             if (id != employee.Id)
@@ -143,6 +148,7 @@ namespace TouristAgency.Controllers
         }
 
         // GET: Employees/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Employees == null)
@@ -163,6 +169,7 @@ namespace TouristAgency.Controllers
         // POST: Employees/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Employees == null)

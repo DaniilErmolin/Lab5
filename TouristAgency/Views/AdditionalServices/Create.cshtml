@@ -1,4 +1,4 @@
-﻿@model TouristAgency.Models.AdditionalService
+﻿@model Domains.Models.AdditionalService
 
 @{
     ViewData["Title"] = "Create";
@@ -36,9 +36,19 @@
 </div>
 
 <div>
-    <a asp-action="Index">Вернуться к дополнительным услугам</a>
+    <a class="btn btn-success" asp-action="Index">Вернуться к дополнительным услугам</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script type="text/javascript">
+    // переопределение валидации на стороне клиента
+    $.validator.methods.range = function (value, element, param) {
+        var globalizedValue = value.replace(",", ".");
+        return this.optional(element) || (globalizedValue >= param[0] && globalizedValue <= param[1]);
+    }
+    $.validator.methods.number = function (value, element) {
+        return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/.test(value);
+    }
+</script>
 }

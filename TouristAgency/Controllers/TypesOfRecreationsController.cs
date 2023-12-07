@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TouristAgency.ViewModel;
+using Domains.ViewModel;
 using TouristAgency.Infrastructure;
-using TouristAgency.Models;
+using Domains.Models;
 using TouristAgency.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Data.SqlClient;
+using Domains.ViewModels;
 
 namespace TouristAgency.Controllers
 {
@@ -20,7 +22,7 @@ namespace TouristAgency.Controllers
         }
 
         // GET: TypesOfRecreations
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(SortState sortOrder, int page = 1)
         {
             TypesOfRecreationViewModel typesOfRecreationModel;
             var typesOfRecreationService = HttpContext.Session.Get<TypesOfRecreationViewModel>("TypesOfRecreation");
@@ -29,7 +31,7 @@ namespace TouristAgency.Controllers
                 typesOfRecreationService = new TypesOfRecreationViewModel();
             }
             IQueryable<TypesOfRecreation> typesDbContext = _context.TypesOfRecreations;
-            typesDbContext = SortSearch(typesDbContext, typesOfRecreationService.Name, typesOfRecreationService.Description, typesOfRecreationService.Restrictions);
+            typesDbContext = SortSearch(sortOrder, typesDbContext, typesOfRecreationService.Name, typesOfRecreationService.Description, typesOfRecreationService.Restrictions);
             var count = typesDbContext.Count();
             typesDbContext = typesDbContext.Skip((page - 1) * pageSize).Take(pageSize);
             typesOfRecreationModel = new TypesOfRecreationViewModel
@@ -38,7 +40,8 @@ namespace TouristAgency.Controllers
                 TypesOfRecreations = typesDbContext,
                 Name = typesOfRecreationService.Name,
                 Description = typesOfRecreationService.Description,
-                Restrictions = typesOfRecreationService.Restrictions
+                Restrictions = typesOfRecreationService.Restrictions,
+                SortViewModel = new SortViewModel(sortOrder)
             };
             return View(typesOfRecreationModel);
         }
@@ -70,6 +73,7 @@ namespace TouristAgency.Controllers
         }
 
         // GET: TypesOfRecreations/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             return View();
@@ -80,6 +84,7 @@ namespace TouristAgency.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Restrictions")] TypesOfRecreation typesOfRecreation)
         {
             if (ModelState.IsValid)
@@ -92,6 +97,7 @@ namespace TouristAgency.Controllers
         }
 
         // GET: TypesOfRecreations/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.TypesOfRecreations == null)
@@ -112,6 +118,7 @@ namespace TouristAgency.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Restrictions")] TypesOfRecreation typesOfRecreation)
         {
             if (id != typesOfRecreation.Id)
@@ -143,6 +150,7 @@ namespace TouristAgency.Controllers
         }
 
         // GET: TypesOfRecreations/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.TypesOfRecreations == null)
@@ -163,6 +171,7 @@ namespace TouristAgency.Controllers
         // POST: TypesOfRecreations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.TypesOfRecreations == null)
@@ -184,8 +193,24 @@ namespace TouristAgency.Controllers
           return (_context.TypesOfRecreations?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        private IQueryable<TypesOfRecreation> SortSearch(IQueryable<TypesOfRecreation> typesOfRecreations, string searchName, string searchDescription, string searchRecreation)
+        private IQueryable<TypesOfRecreation> SortSearch(SortState sortOrder, IQueryable<TypesOfRecreation> typesOfRecreations, string searchName, string searchDescription, string searchRecreation)
         {
+            switch (sortOrder)
+            {
+                case SortState.NameAsc:
+                    typesOfRecreations = typesOfRecreations.OrderBy(s => s.Name);
+                    break;
+                case SortState.NameDesc:
+                    typesOfRecreations = typesOfRecreations.OrderByDescending(s => s.Name);
+                    break;
+                case SortState.DescriptionAsc:
+                    typesOfRecreations = typesOfRecreations.OrderBy(s => s.Description);
+                    break;
+                case SortState.DescriptionDesc:
+                    typesOfRecreations = typesOfRecreations.OrderByDescending(s => s.Description);
+                    break;
+
+            }
             typesOfRecreations = typesOfRecreations.Where(e => e.Name.Contains(searchName ?? "")
             && e.Description.Contains(searchDescription ?? "")
             && e.Restrictions.Contains(searchRecreation ?? ""));

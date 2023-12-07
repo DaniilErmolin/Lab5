@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "oMAHDMvtyWbf8+NPp7INE8tslVIRQ3m/fen/v6KOGEM=",
+  "Hash": "kS5PunDmLyfrnS+dvE/7ewMM/8Ju5JIk8vIhK2dHea0=",
   "Source": "TouristAgency",
   "BasePath": "_content/TouristAgency",
   "Mode": "Default",
@@ -1069,6 +1069,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\3\\SQL\\TouristAgency\\TouristAgency\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\TouristAgency.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\3\\SQL\\TouristAgency\\TouristAgency\\wwwroot\\css\\boot.css",
+      "SourceId": "TouristAgency",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\3\\SQL\\TouristAgency\\TouristAgency\\wwwroot\\",
+      "BasePath": "_content/TouristAgency",
+      "RelativePath": "css/boot.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\boot.css"
     },
     {
       "Identity": "D:\\3\\SQL\\TouristAgency\\TouristAgency\\wwwroot\\css\\site.css",

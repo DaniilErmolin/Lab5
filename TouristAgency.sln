@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TouristAgency", "TouristAgency\TouristAgency.csproj", "{E0B6DCC2-6D25-4F54-9854-FB7F9C971E27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TouristAgency", "TouristAgency\TouristAgency.csproj", "{E0B6DCC2-6D25-4F54-9854-FB7F9C971E27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domains", "Domains\Domains.csproj", "{7EDDB1F6-3005-47F0-8821-031231359479}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositores", "Repositores\Repositores.csproj", "{C7FC96C5-1EA4-493D-A818-3B2228A792A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{E0B6DCC2-6D25-4F54-9854-FB7F9C971E27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0B6DCC2-6D25-4F54-9854-FB7F9C971E27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0B6DCC2-6D25-4F54-9854-FB7F9C971E27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EDDB1F6-3005-47F0-8821-031231359479}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EDDB1F6-3005-47F0-8821-031231359479}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EDDB1F6-3005-47F0-8821-031231359479}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EDDB1F6-3005-47F0-8821-031231359479}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7FC96C5-1EA4-493D-A818-3B2228A792A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7FC96C5-1EA4-493D-A818-3B2228A792A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7FC96C5-1EA4-493D-A818-3B2228A792A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7FC96C5-1EA4-493D-A818-3B2228A792A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

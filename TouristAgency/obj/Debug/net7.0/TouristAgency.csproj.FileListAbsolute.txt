@@ -262,3 +262,5 @@ D:\3\SQL\TouristAgency\TouristAgency\bin\Debug\net7.0\Microsoft.Extensions.Optio
 D:\3\SQL\TouristAgency\TouristAgency\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.UI.dll
 D:\3\SQL\TouristAgency\TouristAgency\bin\Debug\net7.0\Microsoft.Extensions.FileProviders.Embedded.dll
 D:\3\SQL\TouristAgency\TouristAgency\obj\Debug\net7.0\TouristAgency.MvcApplicationPartsAssemblyInfo.cs
+D:\3\SQL\TouristAgency\TouristAgency\bin\Debug\net7.0\Domains.dll
+D:\3\SQL\TouristAgency\TouristAgency\bin\Debug\net7.0\Domains.pdb

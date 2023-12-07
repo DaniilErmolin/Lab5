@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using TouristAgency.Models;
+using Domains.Models;
 
 namespace TouristAgency.Controllers
 {

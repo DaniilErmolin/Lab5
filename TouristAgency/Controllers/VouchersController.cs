@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using TouristAgency.ViewModel;
+using Domains.ViewModel;
 using TouristAgency.Infrastructure;
-using TouristAgency.Models;
+using Domains.Models;
 using TouristAgency.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace TouristAgency.Controllers
 {
@@ -83,6 +84,7 @@ namespace TouristAgency.Controllers
         }
 
         // GET: Vouchers/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             ViewData["AdditionalServiceId"] = new SelectList(_context.AdditionalServices, "Id", "Name");
@@ -98,6 +100,7 @@ namespace TouristAgency.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([Bind("Id,StartDate,ExpirationDate,HotelId,TypeOfRecreationId,AdditionalServiceId,ClientId,EmployessId,Reservation,Payment")] Voucher voucher)
         {
             if (ModelState.IsValid)
@@ -115,6 +118,7 @@ namespace TouristAgency.Controllers
         }
 
         // GET: Vouchers/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Vouchers == null)
@@ -140,6 +144,7 @@ namespace TouristAgency.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,StartDate,ExpirationDate,HotelId,TypeOfRecreationId,AdditionalServiceId,ClientId,EmployessId,Reservation,Payment")] Voucher voucher)
         {
             if (id != voucher.Id)
@@ -176,6 +181,7 @@ namespace TouristAgency.Controllers
         }
 
         // GET: Vouchers/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Vouchers == null)
@@ -201,6 +207,7 @@ namespace TouristAgency.Controllers
         // POST: Vouchers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Vouchers == null)

@@ -1,4 +1,4 @@
-﻿@model TouristAgency.Models.Voucher
+﻿@model Domains.Models.Voucher
 
 @{
     ViewData["Title"] = "Details";
@@ -70,7 +70,7 @@
 <div>
     @if (User.IsInRole("admin"))
     {
-        <a asp-action="Edit" asp-route-id="@Model?.Id">Редактировать |</a>
+        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">Редактировать</a>
     }
-    <a asp-action="Index">Вернуться к дополнительным услугам</a>
+    <a class="btn btn-success" asp-action="Index">Вернуться к дополнительным услугам</a>
 </div>

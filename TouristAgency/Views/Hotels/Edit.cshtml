@@ -1,4 +1,4 @@
-﻿@model TouristAgency.Models.Hotel
+﻿@model Domains.Models.Hotel
 
 @{
     ViewData["Title"] = "Edit";
@@ -55,14 +55,14 @@
                 <span class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Вернуться к списку отелей</a>
+    <a class="btn btn-success" asp-action="Index">Вернуться к списку отелей</a>
 </div>
 
 @section Scripts {

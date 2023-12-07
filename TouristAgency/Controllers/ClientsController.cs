@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TouristAgency.ViewModel;
+using Domains.ViewModel;
 using TouristAgency.Infrastructure;
-using TouristAgency.Models;
+using Domains.Models;
 using TouristAgency.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Data.SqlClient;
 
 namespace TouristAgency.Controllers
 {
@@ -85,6 +86,7 @@ namespace TouristAgency.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([Bind("Id,Fio,DateOfBirth,Sex,Address,Series,Number,Discount")] Client client)
         {
             if (ModelState.IsValid)
@@ -97,6 +99,7 @@ namespace TouristAgency.Controllers
         }
 
         // GET: Clients/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Clients == null)
@@ -117,6 +120,7 @@ namespace TouristAgency.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Fio,DateOfBirth,Sex,Address,Series,Number,Discount")] Client client)
         {
             if (id != client.Id)
@@ -148,6 +152,7 @@ namespace TouristAgency.Controllers
         }
 
         // GET: Clients/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Clients == null)
@@ -168,6 +173,7 @@ namespace TouristAgency.Controllers
         // POST: Clients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Clients == null)

@@ -4038,6 +4038,19 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
+      },
+      "Domains/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Microsoft.Extensions.Identity.Stores": "7.0.13"
+        },
+        "compile": {
+          "bin/placeholder/Domains.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Domains.dll": {}
+        }
       }
     }
   },
@@ -11673,10 +11686,16 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
+    },
+    "Domains/1.0.0": {
+      "type": "project",
+      "path": "../Domains/Domains.csproj",
+      "msbuildProject": "../Domains/Domains.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "Domains >= 1.0.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 7.0.13",
       "Microsoft.AspNetCore.Identity.UI >= 7.0.12",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.13",
@@ -11718,7 +11737,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\3\\SQL\\TouristAgency\\Domains\\Domains.csproj": {
+              "projectPath": "D:\\3\\SQL\\TouristAgency\\Domains\\Domains.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
